@@ -1,11 +1,52 @@
-from flask import Flask, render_template
+import os
+from flask import Flask, render_template, request, flash, redirect, url_for
+
+from authentication import login, registration
+from forms import LoginForm, SignupForm
 
 app = Flask(__name__, static_folder='')
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+
+username = None
 
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', msg=request.args.get('msg'))
+
+
+@app.route('/login-register', methods=["GET", "POST"])
+def login_register():
+    loginform = LoginForm()
+    signupform = SignupForm()
+
+    if loginform.submit1.data and loginform.validate_on_submit():
+        result = request.form
+        resp = login(result['username'], result['password'])
+        if resp['success']:
+            username = result['username']
+            return redirect(url_for('home', msg="You have successfully logged in."))
+        else:
+            return render_template('login-register.html', loginform=LoginForm(), signupform=SignupForm(),
+                                   loginmsg=resp['message'])
+
+    if signupform.submit2.data and signupform.validate_on_submit():
+        result = request.form
+        event = {
+            'username': result['username'],
+            'password': result['password'],
+            'email': result['email'],
+            'name': 'Atul',
+        }
+        resp = registration(event)
+        if resp['success']:
+            username = result['username']
+            return redirect(url_for('home', msg=resp['message']))
+        else:
+            return render_template('login-register.html', loginform=LoginForm(), signupform=SignupForm(),
+                                   signupmsg=resp['message'])
+    return render_template('login-register.html', loginform=loginform, signupform=signupform)
 
 
 @app.route('/about')
@@ -15,7 +56,7 @@ def about():
 
 @app.route('/car-list-map')
 def car_list_map():
-    return render_template('car-list-map.html')
+    return render_template('car-list-map.html', message="Atul")
 
 
 @app.route('/car-booking')
@@ -66,11 +107,6 @@ def index_03():
 @app.route('/index-04')
 def index_04():
     return render_template('index-04.html')
-
-
-@app.route('/login-register')
-def login_register():
-    return render_template('login-register.html')
 
 
 if __name__ == '__main__':
