@@ -1,8 +1,8 @@
 import os
 from flask import Flask, render_template, request, flash, redirect, url_for
 
-from authentication import login, registration
-from forms import LoginForm, SignupForm
+from authentication import *
+from forms import LoginForm, SignupForm, ForgotPassword, ResetPasswordForm
 
 app = Flask(__name__, static_folder='')
 SECRET_KEY = os.urandom(32)
@@ -20,6 +20,17 @@ def home():
 def login_register():
     loginform = LoginForm()
     signupform = SignupForm()
+    forgotpasswordform = ForgotPassword()
+
+    if forgotpasswordform.submit3.data and forgotpasswordform.validate_on_submit():
+        result = request.form
+        resp = forgotpassword(result['username'])
+        print(resp)
+        if resp['success']:
+            return redirect(url_for('confirm_forgot_password', msg="Check your email for the further procedure."))
+        else:
+            return render_template('login-register.html', loginform=LoginForm(), signupform=SignupForm(),
+                                   forgotpasswordform=forgotpasswordform, loginmsg=resp['message'])
 
     if loginform.submit1.data and loginform.validate_on_submit():
         result = request.form
@@ -29,7 +40,7 @@ def login_register():
             return redirect(url_for('home', msg="You have successfully logged in."))
         else:
             return render_template('login-register.html', loginform=LoginForm(), signupform=SignupForm(),
-                                   loginmsg=resp['message'])
+                                   forgotpasswordform=forgotpasswordform, loginmsg=resp['message'])
 
     if signupform.submit2.data and signupform.validate_on_submit():
         result = request.form
@@ -45,8 +56,31 @@ def login_register():
             return redirect(url_for('home', msg=resp['message']))
         else:
             return render_template('login-register.html', loginform=LoginForm(), signupform=SignupForm(),
-                                   signupmsg=resp['message'])
-    return render_template('login-register.html', loginform=loginform, signupform=signupform)
+                                   forgotpasswordform=forgotpasswordform, signupmsg=resp['message'])
+    return render_template('login-register.html', loginform=loginform, signupform=signupform,
+                           forgotpasswordform=forgotpasswordform)
+
+
+@app.route('/confirm-forgot-password', methods=["GET", "POST"])
+def confirm_forgot_password():
+    reset_password_form = ResetPasswordForm()
+    print("get")
+    if reset_password_form.submit4.data and reset_password_form.validate_on_submit():
+        print("post")
+        result = request.form
+        event = {
+            'username': result['username'],
+            'password': result['password'],
+            'code': result['ver_code']
+        }
+        resp = reset_password(event)
+        print(resp)
+        if resp['success']:
+            return redirect(url_for('home', msg="Password has been changed successfully."))
+        else:
+            return redirect(url_for('confirm_forgot_password', msg=resp['message']))
+    return render_template('confirm-forgot-password.html', resetpasswordform=reset_password_form,
+                           msg=request.args.get('msg'))
 
 
 @app.route('/about')

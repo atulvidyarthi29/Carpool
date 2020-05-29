@@ -15,3 +15,15 @@ class SignupForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit2 = SubmitField('Sign Up Now')
+
+
+class ForgotPassword(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    submit3 = SubmitField('Submit')
+
+
+class ResetPasswordForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    ver_code = StringField('Verification Code', validators=[DataRequired()])
+    submit4 = SubmitField('Reset')

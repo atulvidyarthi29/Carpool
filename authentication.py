@@ -132,3 +132,115 @@ def registration(event):
             "success": True,
             "message": "Please confirm your signup,check Email for validation code",
             "data": None}
+
+
+# forgot password
+def forgotpassword(username):
+    try:
+        response = client.forgot_password(
+            ClientId=CLIENT_ID,
+            SecretHash=get_secret_hash(username),
+            Username=username,
+
+        )
+    except client.exceptions.UserNotFoundException:
+        return {"error": True,
+                "data": None,
+                "success": False,
+                "message": "Username doesnt exists"}
+
+    except client.exceptions.InvalidParameterException:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": f"User <{username}> is not confirmed yet"}
+
+    except client.exceptions.CodeMismatchException:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": "Invalid Verification code"}
+
+    except client.exceptions.NotAuthorizedException:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": "User is already confirmed"}
+
+    except Exception as e:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": f"Uknown    error {e.__str__()} "}
+
+    return {
+        "error": False,
+        "success": True,
+        "message": f"Please check your Registered email id for validation code",
+        "data": None}
+
+
+# confirm forgot password
+def reset_password(event):
+    try:
+        username = event['username']
+        password = event['password']
+        code = event['code']
+        client.confirm_forgot_password(
+            ClientId=CLIENT_ID,
+            SecretHash=get_secret_hash(username),
+            Username=username,
+            ConfirmationCode=code,
+            Password=password,
+        )
+    except client.exceptions.UserNotFoundException as e:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": "Username doesnt exists"}
+
+    except client.exceptions.CodeMismatchException as e:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": "Invalid Verification code"}
+
+    except client.exceptions.NotAuthorizedException as e:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": "User is already confirmed"}
+
+    except Exception as e:
+        return {"error": True,
+                "success": False,
+                "data": None,
+                "message": f"Unknown error {e.__str__()} "}
+
+    return {"error": False,
+            "success": True,
+            "message": f"Password has been changed successfully",
+            "data": None}
+
+
+# resend verification code
+
+def resend_verification_code(username):
+    try:
+        username = username
+        response = client.resend_confirmation_code(
+            ClientId=CLIENT_ID,
+            SecretHash=get_secret_hash(username),
+            Username=username,
+        )
+        print(response)
+    except client.exceptions.UserNotFoundException:
+        return {"error": True, "success": False, "message": "Username doesnt exists"}
+
+    except client.exceptions.InvalidParameterException:
+        return {"error": True, "success": False, "message": "User is already confirmed"}
+
+    except Exception as e:
+        return {"error": True, "success": False, "message": f"Unknown error {e.__str__()} "}
+
+    return {"error": False, "success": True, "message": "Verification code has been been sent again to your email."}
