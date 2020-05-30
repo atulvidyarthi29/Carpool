@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-<!-- Mirrored from jthemes.org/html/royalcars/contact by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:15 GMT -->
+<!-- Mirrored from jthemes.org/html/royalcars/car-booking by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:03 GMT -->
+
 <head>
     <!-- PAGE TITLE -->
-    <title>Home - Royal Cars :: Car, Bike Any Vehicle Rental HTML Template</title>
+    <title>Royal Cars :: Booking History</title>
 
     <!-- META-DATA -->
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -21,8 +22,33 @@
     <!-- CSS:: MAIN -->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" id="r-color-roller" href="assets/color-files/color-08.css">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 2px solid #ffcd00;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fae17d;
+        }
+
+        .btn-primary {
+            background: #feaa33;
+            height: 34px;
+            padding: 1px 30px;
+        }
+    </style>
 
 </head>
+
 <body>
 <section id="r-customizer" class="r-customizer">
     <div class="r-selector">
@@ -48,24 +74,19 @@
             <div class="r-header-strip">
                 <div class="container">
                     <div class="row clearfix">
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="r-logo">
                                 <a href="index-2" class="d-inline-block"><img src="assets/images/logo.png"
                                                                               class="img-fluid d-block" alt=""></a>
                             </div>
                             <a href="javaScript:void(0)" class="menu-icon"> <i class="fa fa-bars"></i> </a>
                         </div>
-                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
                             <div class="r-header-action float-right">
-                                {% if user.username == '' %}
-                                    <a href="login-register"><img src="assets/images/icon-lock.png" alt=''/>
-                                        <span>Login</span></a>
-                                {% else %}
-                                    <a href="logout">
-                                        <img src="assets/images/icon-lock.png" alt=''/>
-                                        <span style="font-size: 10px;">Logout</span></a>
-                                {% endif %}
-                                <a href="#" class="r-search"> <img src="assets/images/icon-search.png" alt=''/> <span>Search</span></a>
+                                <a href="login-register"> <img src="assets/images/icon-lock.png" alt=''/>
+                                    <span>Login</span></a>
+                                <a href="#" class="r-search"> <img src="assets/images/icon-search.png" alt=''/>
+                                    <span>Search</span></a>
 
                                 <div class="r-search-wrapper">
                                     <div class="r-search-inner">
@@ -115,78 +136,55 @@
             </div>
             <div class="r-header-inner-banner">
                 <div class="r-header-in-over">
-                    <h1>Our <b>Drivers</b></h1>
+                    <h1>Your<b> Bookings</b></h1>
                     <div class="r-breadcrum">
                         <ul>
                             <li><a href="#">HOME</a></li>
-                            <li><span>DIVERS</span></li>
+                            <li><span>VEHICLES</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    <section id="r-contact-part" class="r-contact-part">
-        <div class="container clearfix">
-            <div class="contact-head">
-                <span>OUR OFFICE</span>
-                <h2>Contact <b>Royal Cars</b> for<br> More Information. </h2>
-            </div>
 
-            <div class="row clearfix">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="r-contact-address">
-                        <div class="head">Main Office</div>
-                        <div class="r-contact-img"><img src="assets/images/contact-img01.jpg"
-                                                        class="img-fluid d-block m-auto" alt=""></div>
-                        <div class="address address-cnt"><i class="fa fa-map-marker"></i><b>300</b> Pennsylvania EV, USA
-                        </div>
-                        <div class="call address-cnt"><i class="fa fa-phone"></i><b>+100</b>-1212-2000</div>
-                        <div class="mail address-cnt"><i class="fa fa-envelope"></i>info@royalcars.com</div>
-                    </div>
-                </div>
+    <section class="r-car-info-wrapper">
+        <div class="container">
+            <table>
+                <tr>
+                    <th>Car</th>
+                    <th>Order date</th>
+                    <th>Pickup date</th>
+                    <th>Place</th>
+                    <th>Price per day</th>
+                    <th>days</th>
+                    {#                    <th>Total Price</th>#}
+                    <th>Payment Type</th>
+                    <th>Actions</th>
+                </tr>
+                {% for book in bookings %}
+                    <tr>
+                        <td><b>{{ book.carid.carcompany }}&nbsp;&nbsp;</b>{{ book.carid.cartype }}</td>
+                        <td>{{ book.order_date }}</td>
+                        <td>{{ book.pickup_date }}</td>
+                        <td>{{ book.place }}</td>
+                        <td>{{ book.carid.priceperday }}</td>
+                        {#                        <td>{{ book.place * book.carid.priceperday }}</td>#}
+                        <td>{{ book.days }}</td>
+                        <td>{{ book.payment_type }}</td>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="r-contact-address">
-                        <div class="head">Other Office</div>
-                        <div class="r-contact-img"><img src="assets/images/contact-img02.jpg"
-                                                        class="img-fluid d-block m-auto" alt=""></div>
-                        <div class="address address-cnt"><i class="fa fa-map-marker"></i><b>300</b> Pennsylvania EV, USA
-                        </div>
-                        <div class="call address-cnt"><i class="fa fa-phone"></i><b>+100</b>-1212-2000</div>
-                        <div class="mail address-cnt"><i class="fa fa-envelope"></i>info@royalcars.com</div>
-                    </div>
-                </div>
-            </div>
+                        <td>
+                            <a href="#" class="btn-primary">Modify</a>
+                            <a href="delete/{{ book.id }}" class="btn-primary">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+
         </div>
     </section>
-    <section id="r-get-in-touch">
-        <div class="r-get-in-touch">
-            <div class="container">
-                <div class="r-get-header">
-                    <span>CONTACT US NOW</span>
-                    <h2>Keep <b>In Touch.</b></h2>
-                </div>
-                <div class="r-get-form">
-                    <div class="clearfix">
-                        <div class="form-group"><input required="" name="userName" id="userName" type="text"
-                                                       placeholder="User name"></div>
-                        <div class="form-group"><input required="" name="userEmail" id="userEmail" type="email"
-                                                       placeholder="Email Address"></div>
-                    </div>
-                    <div class="form-group"><input type="text" required="" name="subject" id="subject"
-                                                   placeholder="Title Message"></div>
-                    <div class="form-group">
-                        <textarea placeholder="Message" name="content" required="" id="content"></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button onClick="sendContact();" class="btn btn-full">SEND MESSAGE NOW</button>
-                    </div>
-                    <div class="mt-4 text-uppercase text-white text-center" id="mail-status"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+
     <footer>
         <div class="r-footer">
             <div class="container">
@@ -195,8 +193,9 @@
                         <div class="r-footer-block">
                             <img src="assets/images/footer-logo.png" class="d-block img-fluid" alt="">
                             <p>
-                                We know the difference is in the details and that’s why our car rental services, in the
-                                tourism and business industry, stand out for their quality.
+                                We know the difference is in the details and that’s why our car rental services, in
+                                the tourism and
+                                business industry, stand out for their quality.
                             </p>
                             <form action="#">
                                 <div class="r-newsletter">
@@ -269,8 +268,8 @@
                 </div>
                 <div class="row clearfix r-footer-strip">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        © 2019 Created by <a href="https://jthemes.com/" target="_blank"
-                                             title="Best Corporate WordPress, HTML Templates">jThemes Studio</a>
+                        ©2019 Created by <a href="https://jthemes.com/" target="_blank"
+                                            title="Best Corporate WordPress, HTML Templates">jThemes Studio</a>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <ul>
@@ -291,47 +290,12 @@
 <!-- JQUERY:: BOOTSTRAP.JS -->
 <script src="assets/js/tether.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-
-<!-- JQUERY:: CUSTOM -->
+<script src="assets/js/plugins/owl/owl.carousel.min.js"></script>
+<script src="assets/js/plugins/owl/owl.carousel2.thumbs.js"></script>
 <script src="assets/js/custom.js"></script>
-
-<script>
-    function sendContact() {
-        var valid;
-        valid = validateContact();
-        if (valid) {
-            jQuery.ajax({
-                url: "contact_mail.php",
-                data: 'userName=' + $("#userName").val() + '&userEmail=' + $("#userEmail").val() + '&subject=' + $("#subject").val() + '&content=' + $(content).val(),
-                type: "POST",
-                success: function (data) {
-                    $("#mail-status")(data);
-                },
-                error: function () {
-                }
-            });
-        }
-    }
-
-    function validateContact() {
-        var valid = true;
-        if (!$("#userName").val()) {
-            valid = false;
-        }
-        if (!$("#userEmail").val()) {
-            valid = false;
-        }
-        if (!$("#subject").val()) {
-            valid = false;
-        }
-        if (!$("#content").val()) {
-            valid = false;
-        }
-        return valid;
-    }
-</script>
 
 </body>
 
-<!-- Mirrored from jthemes.org/html/royalcars/contact by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:16 GMT -->
+<!-- Mirrored from jthemes.org/html/royalcars/car-booking by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:05 GMT -->
+
 </html>

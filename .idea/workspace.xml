@@ -2,15 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c27d9356-7192-4737-a7e2-dcd9884f4016" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dynamodb_operations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CAR_RENTAL_Flask.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CAR_RENTAL_Flask.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/car-booked-list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynamodb_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynamodb_operations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/car-booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car-booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/car-list-map.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car-list-map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/car-listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car-listing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/confirm-forgot-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/confirm-forgot-password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/drivers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/drivers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/faq.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/faq.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/gallery.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gallery.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index-02.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index-02.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index-03.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index-03.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index-04.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index-04.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index-2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/login-register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login-register.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,10 +45,11 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Atul-Inspiron\Desktop\Carpool\templates" />
       <recent name="C:\Users\Atul-Inspiron\Desktop\CAR_RENTAL_Flask" />
     </key>
   </component>
@@ -88,6 +99,11 @@
       <workItem from="1590652076887" duration="8119000" />
       <workItem from="1590754780526" duration="13768000" />
       <workItem from="1590812469677" duration="17132000" />
+      <workItem from="1590849151875" duration="434000" />
+      <workItem from="1590849767397" duration="194000" />
+      <workItem from="1590850403372" duration="5174000" />
+      <workItem from="1590858744029" duration="3221000" />
+      <workItem from="1590862117265" duration="10857000" />
     </task>
     <servers />
   </component>

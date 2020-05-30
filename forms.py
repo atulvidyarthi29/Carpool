@@ -30,17 +30,13 @@ class ResetPasswordForm(FlaskForm):
 
 
 class BookingForm(FlaskForm):
-    pickup_address = TextAreaField(
+    place = TextAreaField(
         'pickup_address', validators=[DataRequired()])
-    pick_up_date = DateField(
+    pick_up_date = StringField(
         'date_pickup', validators=[DataRequired()])
-    order_date = DateField(
-        'date_ordered', validators=[DataRequired()])
-    car_type = StringField('car_type', validators=[DataRequired()])
-    car_company = StringField('car_company', validators=[DataRequired()])
-    payment_type = RadioField('payment_type', choices=[
-        'Direct bank Transfer', 'Cheque Payment', 'Credit Card', 'Paypal'])
-    username = StringField('username')
+    days = StringField('car_type', validators=[DataRequired()])
+    # payment_type = RadioField('payment_type', choices=[
+    #     'Direct bank Transfer', 'Cheque Payment', 'Credit Card', 'Paypal'])
     submit5 = SubmitField('Book Now')
 
 
