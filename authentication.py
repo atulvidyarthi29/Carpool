@@ -24,7 +24,8 @@ def login(username, password):
     resp, msg = initiate_auth(username, password)
     if msg is not None:
         return {'message': msg,
-                "error": True, "success": False, "data": None}
+                "error": True, "success": False, "data": None,
+                }
     if resp.get("AuthenticationResult"):
         return {'message': "success",
                 "error": False,
@@ -233,7 +234,6 @@ def resend_verification_code(username):
             SecretHash=get_secret_hash(username),
             Username=username,
         )
-        print(response)
     except client.exceptions.UserNotFoundException:
         return {"error": True, "success": False, "message": "Username doesnt exists"}
 
@@ -244,3 +244,28 @@ def resend_verification_code(username):
         return {"error": True, "success": False, "message": f"Unknown error {e.__str__()} "}
 
     return {"error": False, "success": True, "message": "Verification code has been been sent again to your email."}
+
+
+def logout(token):
+    try:
+        response = client.global_sign_out(
+            AccessToken=token)
+        print(response['ResponseMetadata']['HTTPStatusCode'])
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+            return {
+                'error': False,
+                'success': True,
+                'message': "Successfully logged out"
+            }
+        else:
+            return {
+                'error': True,
+                'success': False,
+                'message': "Something went wrong"
+            }
+    except Exception as e:
+        return {
+            'error': True,
+            'success': False,
+            'message': "Something went wrong"
+        }

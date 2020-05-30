@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, DateField, RadioField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 
@@ -27,3 +27,23 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     ver_code = StringField('Verification Code', validators=[DataRequired()])
     submit4 = SubmitField('Reset')
+
+
+class BookingForm(FlaskForm):
+    pickup_address = TextAreaField(
+        'pickup_address', validators=[DataRequired()])
+    pick_up_date = DateField(
+        'date_pickup', validators=[DataRequired()])
+    order_date = DateField(
+        'date_ordered', validators=[DataRequired()])
+    car_type = StringField('car_type', validators=[DataRequired()])
+    car_company = StringField('car_company', validators=[DataRequired()])
+    payment_type = RadioField('payment_type', choices=[
+        'Direct bank Transfer', 'Cheque Payment', 'Credit Card', 'Paypal'])
+    username = StringField('username')
+    submit5 = SubmitField('Book Now')
+
+
+class CarListingForm(FlaskForm):
+    carcompany = StringField('carcompany', validators=[DataRequired()])
+    cartype = StringField('cartype', validators=[DataRequired()])

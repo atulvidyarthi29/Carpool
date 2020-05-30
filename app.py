@@ -2,13 +2,15 @@ import os
 from flask import Flask, render_template, request, flash, redirect, url_for
 
 from authentication import *
-from forms import LoginForm, SignupForm, ForgotPassword, ResetPasswordForm
+from forms import LoginForm, SignupForm, ForgotPassword, ResetPasswordForm, BookingForm
+from dynamodb_operations import get_all_cars, rent_car
+import requests as req
+from user import User
 
 app = Flask(__name__, static_folder='')
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
-
-username = None
+logged_in_user = User()
 
 
 @app.route('/')
@@ -25,7 +27,6 @@ def login_register():
     if forgotpasswordform.submit3.data and forgotpasswordform.validate_on_submit():
         result = request.form
         resp = forgotpassword(result['username'])
-        print(resp)
         if resp['success']:
             return redirect(url_for('confirm_forgot_password', msg="Check your email for the further procedure."))
         else:
@@ -36,7 +37,8 @@ def login_register():
         result = request.form
         resp = login(result['username'], result['password'])
         if resp['success']:
-            username = result['username']
+            logged_in_user.username = result['username']
+            logged_in_user.token = resp['data']['access_token']
             return redirect(url_for('home', msg="You have successfully logged in."))
         else:
             return render_template('login-register.html', loginform=LoginForm(), signupform=SignupForm(),
@@ -52,7 +54,6 @@ def login_register():
         }
         resp = registration(event)
         if resp['success']:
-            username = result['username']
             return redirect(url_for('home', msg=resp['message']))
         else:
             return render_template('login-register.html', loginform=LoginForm(), signupform=SignupForm(),
@@ -64,9 +65,7 @@ def login_register():
 @app.route('/confirm-forgot-password', methods=["GET", "POST"])
 def confirm_forgot_password():
     reset_password_form = ResetPasswordForm()
-    print("get")
     if reset_password_form.submit4.data and reset_password_form.validate_on_submit():
-        print("post")
         result = request.form
         event = {
             'username': result['username'],
@@ -74,13 +73,25 @@ def confirm_forgot_password():
             'code': result['ver_code']
         }
         resp = reset_password(event)
-        print(resp)
         if resp['success']:
             return redirect(url_for('home', msg="Password has been changed successfully."))
         else:
             return redirect(url_for('confirm_forgot_password', msg=resp['message']))
     return render_template('confirm-forgot-password.html', resetpasswordform=reset_password_form,
                            msg=request.args.get('msg'))
+
+
+@app.route('/facebook-oauth')
+def facebook_authentication():
+    url = "https://rentcar..auth.us-east-1.amazoncognito.com/oauth2/authorize"
+    param = {
+        'identity_provider': 'facebook',
+        'response_type': 'token',
+        'client_id': CLIENT_ID,
+        'redirect_uri': 'http:localhost:5000'
+    }
+    resp = req.get(url=url, params=param)
+    return redirect(url_for('home', msg=resp))
 
 
 @app.route('/about')
@@ -93,14 +104,23 @@ def car_list_map():
     return render_template('car-list-map.html', message="Atul")
 
 
-@app.route('/car-booking')
+@app.route('/car-booking', methods=["GET", "POST"])
 def car_booking():
-    return render_template('car-booking.html')
+    booking_form = BookingForm()
+    if booking_form.submit5.data and booking_form.validate_on_submit():
+        result1 = request.form
+        resp = rent_car(result1)
+        if resp['success']:
+            return redirect(url_for('car_booking', bookingform=booking_form, msg=resp['message']))
+        else:
+            return redirect(url_for('car_booking', msg=resp['message']))
+    return render_template('car-booking.html', bookingform=booking_form)
 
 
-@app.route('/car-listing')
+@app.route('/car-listing', methods=["GET", "POST"])
 def car_listing():
-    return render_template('car-listing.html')
+    carslist = get_all_cars()
+    return render_template('car-listing.html', carlist=carslist['Items'])
 
 
 @app.route('/contact')
@@ -141,6 +161,12 @@ def index_03():
 @app.route('/index-04')
 def index_04():
     return render_template('index-04.html')
+
+
+@app.route('/logout')
+def sign_out():
+    resp = logout(logged_in_user.token)
+    return redirect(url_for('home', msg=resp['message']))
 
 
 if __name__ == '__main__':
