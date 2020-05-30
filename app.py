@@ -163,7 +163,7 @@ def car_list_map():
 
 
 @app.route('/contact')
-def contract():
+def contact():
     return render_template('contact.html', user=logged_in_user)
 
 

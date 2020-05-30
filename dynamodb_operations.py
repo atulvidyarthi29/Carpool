@@ -40,7 +40,7 @@ def modify_bookings(id):
             Key={
                 'id': id,
             },
-            UpdateExpression="set info.rating=:r, info.plot=:p, info.actors=:a",
+            UpdateExpression="set info.place=:r, info.days=:p, info.ick=:a",
         )
         print(response)
         return response
