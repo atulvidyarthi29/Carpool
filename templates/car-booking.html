@@ -51,7 +51,7 @@
                     <div class="row clearfix">
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="r-logo">
-                                <a href="index-2" class="d-inline-block"><img
+                                <a href="{{ url_for('home') }}" class="d-inline-block"><img
                                         src="{{ url_for('static', filename="assets/images/logo.png") }}"
                                         class="img-fluid d-block" alt=""></a>
                             </div>
@@ -66,7 +66,8 @@
                                         <span>Login</span></a>
                                 {% else %}
                                     <a href="{{ url_for('sign_out') }}">
-                                        <img src="{{ url_for('static', filename="assets/images/icon-lock.png") }}" alt=''/>
+                                        <img src="{{ url_for('static', filename="assets/images/icon-lock.png") }}"
+                                             alt=''/>
                                         <span style="font-size: 10px;">Logout</span></a>
                                 {% endif %}
                                 <a href="#" class="r-search"> <img
@@ -88,15 +89,6 @@
                                 <nav>
                                     <ul>
                                         <li class="r-has-child">
-                                            <a href="{{ url_for('index_2') }}">HOME</a>
-                                            <ul class="pl-0 ml-0">
-                                                <li><a href="{{ url_for('index_2') }}">Home 01</a></li>
-                                                <li><a href="{{ url_for('index_02') }}">Home 02</a></li>
-                                                <li><a href="{{ url_for('index_03') }}">Home 03</a></li>
-                                                <li><a href="{{ url_for('index_04') }}">Home 04</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="r-has-child">
                                             <a href="{{ url_for('about') }}">ABOUT US</a>
                                             <ul class="pl-0 ml-0">
                                                 <li><a href="{{ url_for('faq') }}">Faq</a></li>
@@ -104,6 +96,11 @@
                                         </li>
                                         <li class="r-has-child">
                                             <a href="{{ url_for('car_listing') }}">VEHICLES</a>
+                                            {% if user.username != "" %}
+                                                <ul class="pl-0 ml-0">
+                                                    <li><a href="{{ url_for('past_bookings') }}">Car Booking</a></li>
+                                                </ul>
+                                            {% endif %}
                                         </li>
                                         <li><a href="{{ url_for('gallery') }}">GALLERY</a></li>
                                         <li><a href="{{ url_for('drivers') }}">DRIVERS</a></li>
@@ -230,7 +227,7 @@
                                         <div class="form-group">
                                             <label>Place</label>
                                             <div class="input-group">
-                                                {{ bookingform.place(class="form-control",placeholder="Airport or anywhere") }}
+                                                {{ bookingform.place(class="form-control",placeholder="Pickup Location") }}
                                             </div>
                                         </div>
                                     </div>
@@ -238,13 +235,13 @@
                                         <div class="form-group">
                                             <label>Book on</label>
                                             <div class="input-group">
-                                                {{ bookingform.pick_up_date(class="form-control",placeholder="Airport or anywhere") }}
+                                                {{ bookingform.pick_up_date(class="form-control",placeholder="dd-mm-yyyy") }}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>No. of days </label>
                                             <div class="input-group">
-                                                {{ bookingform.days(class="form-control",placeholder="dd.mm.yy") }}
+                                                {{ bookingform.days(class="form-control",placeholder="Days") }}
                                             </div>
                                         </div>
                                     </div>
@@ -252,61 +249,27 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="r-site-default-accordion">
                             <div class="r-accordion-header">
                                 <h2 class="r-accordion-heading">Payment Options</h2>
                                 <i class="fa fa-angle-up"></i>
                             </div>
                             <div class="r-accordion-body">
-
                                 <div class="r-payment-options">
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="r-site-checkbox">
-                                                <label>
-                                                    <input type="checkbox"/>
-                                                    <span class="r-site-checkbox-icon"> <i
-                                                            class="fa fa-check-square"></i> </span>
-                                                    <span class="r-site-checkbox-text">Direct bank Transfer</span>
-                                                </label>
+                                        {% for rad in bookingform.payment_type %}
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="r-site-checkbox">
+                                                    <label>
+                                                        {{ rad }}
+                                                        <span class="r-site-checkbox-icon"> <i
+                                                                class="fa fa-check-square"></i> </span>
+                                                        <span class="r-site-checkbox-text">{{ rad.label }}</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="r-site-checkbox">
-                                                <label>
-                                                    <input type="checkbox"/>
-                                                    <span class="r-site-checkbox-icon"> <i
-                                                            class="fa fa-check-square"></i> </span>
-                                                    <span class="r-site-checkbox-text">Credit Card</span>
-                                                </label>
-                                                <img src="{{ url_for('static', filename="assets/images/payment-icons.jpg") }}"
-                                                     alt=""
-                                                     class=""/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="r-site-checkbox">
-                                                <label>
-                                                    <input type="checkbox"/>
-                                                    <span class="r-site-checkbox-icon"> <i
-                                                            class="fa fa-check-square"></i> </span>
-                                                    <span class="r-site-checkbox-text">Cheque Payment</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="r-site-checkbox">
-                                                <label>
-                                                    <input type="checkbox"/>
-                                                    <span class="r-site-checkbox-icon"> <i
-                                                            class="fa fa-check-square"></i> </span>
-                                                    <span class="r-site-checkbox-text">Paypal</span>
-                                                </label>
-                                                <img src="{{ url_for('static', filename="assets/images/paypal-icon.jpg") }}"
-                                                     alt=""
-                                                     class=""/>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
 
@@ -317,14 +280,7 @@
                         <div class="r-booking-form-submission">
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
-                                    <div class="r-site-checkbox">
-                                        <label>
-                                            <input type="checkbox"/>
-                                            <span class="r-site-checkbox-icon"> <i
-                                                    class="fa fa-check-square"></i> </span>
-                                            <span class="r-site-checkbox-text">I accept all informations & payment eyc</span>
-                                        </label>
-                                    </div>
+
                                 </div>
                                 <div class="col-lg-6 col-md-12 r-submission-btn-wrapper">
                                     <input type="reset" class="btn-default" value="Cancel This"/>

@@ -29,26 +29,32 @@ def get_bookings(username):
     response = table.scan(
         FilterExpression=Attr('username').eq(username)
     )
-    items = response['Items']
-    return items
+    return response['Items']
 
 
-def modify_bookings(id):
-    try:
-        table = dynamodb.Table('orders')
-        response = table.update_item(
-            Key={
-                'id': id,
-            },
-            UpdateExpression="set info.place=:r, info.days=:p, info.ick=:a",
-        )
-        print(response)
-        return response
-    except e:
-        return {
-            'success': False,
-            'error': True,
-            'message': "Your bookings could not be fetched. Some problem occurred."}
+def get_booking_by_id(id):
+    table = dynamodb.Table('orders')
+    response = table.get_item(Key={
+        'id': id,
+    })
+    return response['Item']
+
+
+def update_booking(id, place, days, date):
+    table = dynamodb.Table('orders')
+    response = table.update_item(
+        Key={
+            'id': id,
+        },
+        UpdateExpression="set place=:r, days=:p, pickup_date=:a",
+        ExpressionAttributeValues={
+            ':r': place,
+            ':p': days,
+            ':a': date
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+    return response
 
 
 def delete_booking(id):

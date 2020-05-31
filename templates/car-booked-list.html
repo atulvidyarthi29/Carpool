@@ -76,8 +76,9 @@
                     <div class="row clearfix">
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="r-logo">
-                                <a href="index-2" class="d-inline-block"><img src="assets/images/logo.png"
-                                                                              class="img-fluid d-block" alt=""></a>
+                                <a href="{{ url_for('home') }}" class="d-inline-block"><img src="assets/images/logo.png"
+                                                                                            class="img-fluid d-block"
+                                                                                            alt=""></a>
                             </div>
                             <a href="javaScript:void(0)" class="menu-icon"> <i class="fa fa-bars"></i> </a>
                         </div>
@@ -109,15 +110,6 @@
                                 <nav>
                                     <ul>
                                         <li class="r-has-child">
-                                            <a href="index-2">HOME</a>
-                                            <ul class="pl-0 ml-0">
-                                                <li><a href="index-2">Home 01</a></li>
-                                                <li><a href="index-02">Home 02</a></li>
-                                                <li><a href="index-03">Home 03</a></li>
-                                                <li><a href="index-04">Home 04</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="r-has-child">
                                             <a href="about">ABOUT US</a>
                                             <ul class="pl-0 ml-0">
                                                 <li><a href="faq">Faq</a></li>
@@ -125,10 +117,11 @@
                                         </li>
                                         <li class="r-has-child">
                                             <a href="car-listing">VEHICLES</a>
-                                            <ul class="pl-0 ml-0">
-                                                <li><a href="car-list-map">Car List Map</a></li>
-                                                <li><a href="car-booking">Car Booking</a></li>
-                                            </ul>
+                                            {% if user.username != "" %}
+                                                <ul class="pl-0 ml-0">
+                                                    <li><a href="past-bookings">Car Booking</a></li>
+                                                </ul>
+                                            {% endif %}
                                         </li>
                                         <li><a href="gallery">GALLERY</a></li>
                                         <li><a href="drivers">DRIVERS</a></li>
@@ -180,7 +173,7 @@
                         <td>{{ book.payment_type }}</td>
 
                         <td>
-                            <a href="#" class="btn-primary">Modify</a>
+                            <a href="modify-booking/{{ book.id }}" class="btn-primary">Modify</a>
                             <a href="delete/{{ book.id }}" class="btn-primary">Delete</a></td>
                     </tr>
                 {% endfor %}

@@ -113,7 +113,7 @@ def car_booking(item_id):
             'days': result1['days'],
             'order_date': str(datetime.today()),
             'carid': car,
-            'payment_type': "Cheque",
+            'payment_type': result1['payment_type'],
             'username': logged_in_user.username,
         }
         resp = rent_car(event)
@@ -122,6 +122,24 @@ def car_booking(item_id):
         else:
             return redirect(url_for('past_bookings', msg=resp['message']))
     return render_template('car-booking.html', bookingform=booking_form, user=logged_in_user, car=car,
+                           msg=request.args.get('msg'))
+
+
+@app.route('/modify-booking/<int:item_id>', methods=["GET", "POST"])
+def modify_booking(item_id):
+    booking = get_booking_by_id(item_id)
+    booking_form = BookingForm(place=booking['place'], pick_up_date=booking['pickup_date'], days=booking['days'],
+                               payment_type=booking['payment_type'])
+    if booking_form.submit5.data and booking_form.validate_on_submit():
+        if logged_in_user.username == "":
+            return redirect(url_for('modify_booking', msg="You must be logged in modify the booking."))
+        result1 = request.form
+        resp = update_booking(item_id, result1['place'], result1['days'], result1['pick_up_date'])
+        if resp['ResponseMetadata']['HTTPStatusCode'] == 200:
+            return redirect(url_for('past_bookings'))
+        else:
+            return redirect(url_for('modify_booking', msg="Something went wrong."))
+    return render_template('modify-booking.html', bookingform=booking_form, booking=booking, user=logged_in_user,
                            msg=request.args.get('msg'))
 
 
@@ -180,26 +198,6 @@ def faq():
 @app.route('/gallery')
 def gallery():
     return render_template('gallery.html', user=logged_in_user)
-
-
-@app.route('/index-2')
-def index_2():
-    return render_template('index-2.html', user=logged_in_user)
-
-
-@app.route('/index-02')
-def index_02():
-    return render_template('index-02.html', user=logged_in_user)
-
-
-@app.route('/index-03')
-def index_03():
-    return render_template('index-03.html', user=logged_in_user)
-
-
-@app.route('/index-04')
-def index_04():
-    return render_template('index-04.html', user=logged_in_user)
 
 
 if __name__ == '__main__':

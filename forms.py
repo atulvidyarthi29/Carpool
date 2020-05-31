@@ -34,9 +34,9 @@ class BookingForm(FlaskForm):
         'pickup_address', validators=[DataRequired()])
     pick_up_date = StringField(
         'date_pickup', validators=[DataRequired()])
-    days = StringField('car_type', validators=[DataRequired()])
-    # payment_type = RadioField('payment_type', choices=[
-    #     'Direct bank Transfer', 'Cheque Payment', 'Credit Card', 'Paypal'])
+    days = StringField('days', validators=[DataRequired()])
+    payment_type = RadioField('payment_type', choices=[
+        ('Cash', 'Cash'), ('Cheque', 'Cheque'), ('Credit Card', 'Credit Card'), ('Paypal', 'Paypal'), ('UPI', 'UPI')])
     submit5 = SubmitField('Book Now')
 
 

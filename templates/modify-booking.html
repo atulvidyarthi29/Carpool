@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-<!-- Mirrored from jthemes.org/html/royalcars/gallery by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:05 GMT -->
+<!-- Mirrored from jthemes.org/html/royalcars/car-booking by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:03 GMT -->
 <head>
     <!-- PAGE TITLE -->
-    <title>Home - Royal Cars :: Car, Bike Any Vehicle Rental HTML Template</title>
+    <title>Royal Cars :: Car Rental HTML Template</title>
 
     <!-- META-DATA -->
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -13,14 +13,15 @@
     <meta name="keywords" content="">
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <link rel="shortcut icon" href="{{ url_for('static', filename="assets/images/favicon.png") }}">
 
     <!-- CSS:: FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
     <!-- CSS:: MAIN -->
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-    <link rel="stylesheet" type="text/css" id="r-color-roller" href="assets/color-files/color-08.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="assets/css/main.css") }}">
+    <link rel="stylesheet" type="text/css" id="r-color-roller"
+          href="{{ url_for('static', filename="assets/color-files/color-08.css") }}">
 
 </head>
 <body>
@@ -50,22 +51,28 @@
                     <div class="row clearfix">
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="r-logo">
-                                <a href="{{ url_for('home') }}" class="d-inline-block"><img src="assets/images/logo.png"
-                                                                              class="img-fluid d-block" alt=""></a>
+                                <a href="{{ url_for('home') }}" class="d-inline-block"><img
+                                        src="{{ url_for('static', filename="assets/images/logo.png") }}"
+                                        class="img-fluid d-block" alt=""></a>
                             </div>
                             <a href="javaScript:void(0)" class="menu-icon"> <i class="fa fa-bars"></i> </a>
                         </div>
-                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
                             <div class="r-header-action float-right">
                                 {% if user.username == '' %}
-                                    <a href="login-register"><img src="assets/images/icon-lock.png" alt=''/>
+                                    <a href="{{ url_for('login_register') }}"><img
+                                            src="{{ url_for('static', filename="assets/images/icon-lock.png") }}"
+                                            alt=''/>
                                         <span>Login</span></a>
                                 {% else %}
-                                    <a href="logout">
-                                        <img src="assets/images/icon-lock.png" alt=''/>
+                                    <a href="{{ url_for('sign_out') }}">
+                                        <img src="{{ url_for('static', filename="assets/images/icon-lock.png") }}"
+                                             alt=''/>
                                         <span style="font-size: 10px;">Logout</span></a>
                                 {% endif %}
-                                <a href="#" class="r-search"> <img src="assets/images/icon-search.png" alt=''/> <span>Search</span></a>
+                                <a href="#" class="r-search"> <img
+                                        src="{{ url_for('static', filename="assets/images/icon-search.png") }}"
+                                        alt=''/> <span>Search</span></a>
 
                                 <div class="r-search-wrapper">
                                     <div class="r-search-inner">
@@ -82,9 +89,9 @@
                                 <nav>
                                     <ul>
                                         <li class="r-has-child">
-                                            <a href="about">ABOUT US</a>
+                                            <a href="{{ url_for('about') }}">ABOUT US</a>
                                             <ul class="pl-0 ml-0">
-                                                <li><a href="faq">Faq</a></li>
+                                                <li><a href="{{ url_for('faq') }}">Faq</a></li>
                                             </ul>
                                         </li>
                                         <li class="r-has-child">
@@ -95,9 +102,9 @@
                                                 </ul>
                                             {% endif %}
                                         </li>
-                                        <li><a href="gallery">GALLERY</a></li>
-                                        <li><a href="drivers">DRIVERS</a></li>
-                                        <li><a href="contact">CONTACT US</a></li>
+                                        <li><a href="{{ url_for('gallery') }}">GALLERY</a></li>
+                                        <li><a href="{{ url_for('drivers') }}">DRIVERS</a></li>
+                                        <li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -107,131 +114,167 @@
             </div>
             <div class="r-header-inner-banner">
                 <div class="r-header-in-over">
-                    <h1><b>About</b> Royal Cars </h1>
+                    <h1>Royal Cars<b> Vehicles.</b></h1>
                     <div class="r-breadcrum">
                         <ul>
                             <li><a href="#">HOME</a></li>
-                            <li><span>ABOUT US</span></li>
+                            <li><span>VEHICLES</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    <section id="r-gallery-part" class="r-gallery-part">
-        <div class="container clearfix">
-            <ul>
-                <li>
-                    <a href="assets/images/gallery-img01.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img01.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
+
+    <section class="r-car-info-wrapper">
+        <div class="container">
+            {% if msg %}
+                <div class="alert alert-danger" role="alert">
+                    {{ msg }}
+                </div>
+            {% endif %}
+            <div class="r-car-info-header clearfix">
+                <div class="r-car-top-info">
+                    <div class="r-car-rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <span class="r-rating-text"> CAR RATING: 5/5 </span>
+                    </div>
+                    <h2 class="r-car-name">{{ booking.carid.carcompany }}<span>{{ booking.carid.cartype }}</span></h2>
+                </div>
+
+                <div class="r-car-offer">
+                    <div class="r-offer-cost">
+                        <span class="fa fa-usd r-currency"></span> {{ booking.carid.priceperday }} <small>Per
+                        Day</small>
+                    </div>
+                    <span class="r-tax-info"> INCLUDED TAXES & CHECKUP </span>
+                </div>
+            </div> <!-- /r-car-info-header -->
+
+            <div class="r-car-whole-info">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                        <img src="{{ booking.carid.image }}" alt="hey" class="img-fluid"/>
+                    </div>
+
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                        <div class="r-car-info-content">
+                            <span class="r-reg-year">Registered {{ booking.carid.DOM }}</span>
+                            <h2 class="r-product-name"> {{ booking.carid.carcompany }}
+                                <span>{{ booking.carid.cartype }}</span></h2>
+                            <p class="r-product-description">This was our first time renting from Royal Cars and we were
+                                very pleased with the whole experience. Your price was lower than other companies.</p>
+                            <div class="table-responsive">
+                                <table class="table ">
+                                    <tr>
+                                        <td><i class="fa fa-cogs"></i></td>
+                                        <td><i class="fa fa-beer"></i></td>
+                                        <td><i class="fa fa-road"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ booking.carid.gear }}</td>
+                                        <td>{{ booking.carid.fueltype }}</td>
+                                        <td>{{ booking.carid.cc }} &nbsp;cc</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img02.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img02.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
+
+
+                    </div>
+                </div>
+            </div> <!-- /r-car-whole-info -->
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="r-product-testimonial-wrapper">
+                        <h4>Testimonials</h4>
+                        <div class="owl-carousel" id="productTestimonial">
+                            <div class="r-testimonial-box">
+                                "We know the difference is in the details and that’s why our car rental services, in the
+                                tourism and business."
+                            </div>
+                            <div class="r-testimonial-box">
+                                "We know the difference is in the details and that’s why our car rental services, in the
+                                tourism and business."
+                            </div>
+                            <div class="r-testimonial-box">
+                                "We know the difference is in the details and that’s why our car rental services, in the
+                                tourism and business."
                             </div>
                         </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img03.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img03.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
+                    </div>
+
+                    <div class="r-product-discount">
+                        <span class="r-discount">DISCOUNT 50%</span>
+                        <p class="r-discount-content"> Special Offers For <strong>Black Friday.</strong></p>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-9 col-md-8 col-sm-12">
+                    <form method="POST">
+                        {{ bookingform.hidden_tag() }}
+                        <div class="r-site-default-accordion">
+                            <div class="r-accordion-header">
+                                <h2 class="r-accordion-heading">Booking Detail</h2>
+                                <i class="fa fa-angle-up"></i>
+                            </div>
+                            <div class="r-accordion-body">
+                                <div class="row">
+
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Place</label>
+                                            <div class="input-group">
+                                                {{ bookingform.place(class="form-control",placeholder="Pickup Location") }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Book on</label>
+                                            <div class="input-group">
+                                                {{ bookingform.pick_up_date(class="form-control",placeholder="dd-mm-yyyy") }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>No. of days </label>
+                                            <div class="input-group">
+                                                {{ bookingform.days(class="form-control",placeholder="Days") }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span><b>Ordered on</b> {{ booking.order_date }}</span><br>
+                                <span><b>Payment Mode</b> {{ booking.payment_type }}</span>
                             </div>
                         </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img04.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img04.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
+
+                        <div class="r-booking-form-submission">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+
+                                </div>
+                                <div class="col-lg-6 col-md-12 r-submission-btn-wrapper">
+                                    <input type="reset" class="btn-default" value="Cancel This"/>
+
+                                    {{ bookingform.submit5(class="btn-primary",value="RESERVE NOW" ) }}
+                                </div>
                             </div>
                         </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img05.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img05.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img06.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img06.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img07.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img07.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img08.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img08.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="assets/images/gallery-img09.jpg" data-rel="lightcase:myCollection">
-                        <img src="assets/images/gallery-img09.jpg" class="d-block img-fluid" alt="">
-                        <div class="gallery-hover">
-                            <div class="gallery-text">
-                                <span>Registered 2016</span>
-                                <h5><b>Volkswagen</b> GTR</h5>
-                                <div class="icon-gallery"><i class="fa fa-search" aria-hidden="true"></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+                    </form>
+                </div>
+            </div>
+
+
         </div>
-    </section>
+    </section> <!-- /r-car-info -->
+
     <section id="r-get-in-touch">
         <div class="r-get-in-touch">
             <div class="container">
@@ -263,7 +306,8 @@
                 <div class="row clearfix">
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="r-footer-block">
-                            <img src="assets/images/footer-logo.png" class="d-block img-fluid" alt="">
+                            <img src="{{ url_for('static', filename="assets/images/footer-logo.png") }}"
+                                 class="d-block img-fluid" alt="">
                             <p>
                                 We know the difference is in the details and that’s why our car rental services, in the
                                 tourism and business industry, stand out for their quality.
@@ -319,7 +363,9 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="r-footer-block">
                             <div class="r-footer-widget r-footer-map">
-                                <a href="#"> <img src="assets/images/icon-footer-map.png" class="icon" alt=''/>
+                                <a href="#"> <img
+                                        src="{{ url_for('static', filename="assets/images/icon-footer-map.png") }}"
+                                        class="icon" alt=''/>
                                     RoyalCars on Map</a>
                             </div>
                             <div class="r-footer-widget r-footer-nav">
@@ -339,8 +385,8 @@
                 </div>
                 <div class="row clearfix r-footer-strip">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        © 2019 Created by <a href="https://jthemes.com/" target="_blank"
-                                             title="Best Corporate WordPress, HTML Templates">jThemes Studio</a>
+                        ©2019 Created by <a href="https://jthemes.com/" target="_blank"
+                                            title="Best Corporate WordPress, HTML Templates">jThemes Studio</a>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <ul>
@@ -356,17 +402,16 @@
 </div>
 <div id="r-to-top" class="r-to-top"><i class="fa fa-angle-up"></i></div>
 <!-- JQUERY:: JQUERY.JS -->
-<script src="assets/js/jquery.min.js"></script>
+<script src="{{ url_for('static', filename="assets/js/jquery.min.js") }}"></script>
 
 <!-- JQUERY:: BOOTSTRAP.JS -->
-<script src="assets/js/tether.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/plugins/lightcase/lightcase.js"></script>
-
-<!-- JQUERY:: PLUGINS -->
-<script src="assets/js/custom.js"></script>
+<script src="{{ url_for('static', filename="assets/js/tether.min.js") }}"></script>
+<script src="{{ url_for('static', filename="assets/js/bootstrap.min.js") }}"></script>
+<script src="{{ url_for('static', filename="assets/js/plugins/owl/owl.carousel.min.js") }}"></script>
+<script src="{{ url_for('static', filename="assets/js/plugins/owl/owl.carousel2.thumbs.js") }}"></script>
+<script src="{{ url_for('static', filename="assets/js/custom.js") }}"></script>
 
 </body>
 
-<!-- Mirrored from jthemes.org/html/royalcars/gallery by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:15 GMT -->
+<!-- Mirrored from jthemes.org/html/royalcars/car-booking by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 13:40:05 GMT -->
 </html>
