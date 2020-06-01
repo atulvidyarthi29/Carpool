@@ -95,10 +95,10 @@
                                             </ul>
                                         </li>
                                         <li class="r-has-child">
-                                            <a href="car-listing">VEHICLES</a>
+                                            <a href="{{ url_for('car_listing') }}">VEHICLES</a>
                                             {% if user.username != "" %}
                                                 <ul class="pl-0 ml-0">
-                                                    <li><a href="past-bookings">Car Booking</a></li>
+                                                    <li><a href="{{ url_for('past_bookings') }}">Car Booking</a></li>
                                                 </ul>
                                             {% endif %}
                                         </li>

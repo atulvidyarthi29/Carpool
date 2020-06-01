@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c27d9356-7192-4737-a7e2-dcd9884f4016" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/modify-booking.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynamodb_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynamodb_operations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car-booked-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car-booked-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car-booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car-booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car-list-map.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car-list-map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/car-listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car-listing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/confirm-forgot-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/confirm-forgot-password.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/drivers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/drivers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/faq.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/faq.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/gallery.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gallery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index-02.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index-03.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index-04.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index-2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login-register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login-register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/modify-booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modify-booking.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +87,7 @@
       <workItem from="1590858744029" duration="3221000" />
       <workItem from="1590862117265" duration="14574000" />
       <workItem from="1590900678334" duration="2510000" />
-      <workItem from="1590914050541" duration="16964000" />
+      <workItem from="1590914050541" duration="18664000" />
     </task>
     <servers />
   </component>
