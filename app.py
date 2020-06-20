@@ -5,7 +5,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from authentication import *
 from forms import LoginForm, SignupForm, ForgotPassword, ResetPasswordForm, BookingForm
 from dynamodb_operations import *
-import requests as req
 from user import User
 from datetime import datetime
 
@@ -84,17 +83,22 @@ def confirm_forgot_password():
                            msg=request.args.get('msg'), user=logged_in_user)
 
 
-@app.route('/facebook-oauth')
-def facebook_authentication():
-    url = "https://rentcar.auth.us-east-1.amazoncognito.com/login"
-    param = {
-        'client_id': CLIENT_ID,
-        'response_type': 'token',
-        'scope': ['email', 'openid', 'profile'],
-        'redirect_uri': 'https://jyi75vyoma.execute-api.us-east-1.amazonaws.com/dev/'
-    }
-    resp = req.get(url=url, params=param)
-    return redirect(url_for('home', msg=resp))
+@app.route('/social-oauth', methods=['GET'])
+def social_authentication():
+    print("Hi")
+    # print("id", request.args.get('id_token'))
+    # dt = decode_id_token(request.args.get('id_token'))
+    # logged_in_user.username = dt['cognito:username']
+    # logged_in_user.token = request.args.get('access_token')
+    logged_in_user.username = "iiits"
+    logged_in_user.token = "Hey"
+    return redirect(url_for('home', msg="successfully facebook logged in"))
+
+
+# @app.route('/app_response_token/<token>/', methods=['GET'])
+# def app_response_token(token):
+#     print(token)
+#     return token
 
 
 @app.route('/car-booking/<int:item_id>', methods=["GET", "POST"])
@@ -164,10 +168,15 @@ def car_listing():
 
 @app.route('/logout')
 def sign_out():
-    resp = logout(logged_in_user.token)
+    try:
+        resp = logout(logged_in_user.token)
+        msg = resp['message']
+    except:
+        msg = "Logged out"
+        pass
     logged_in_user.username = ""
     logged_in_user.token = ""
-    return redirect(url_for('home', msg=resp['message']))
+    return redirect(url_for('home', msg=msg))
 
 
 @app.route('/about')

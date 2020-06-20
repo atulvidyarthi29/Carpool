@@ -21,6 +21,30 @@
     <!-- CSS:: MAIN -->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" id="r-color-roller" href="assets/color-files/color-08.css">
+    <style>
+        .fb {
+            background-color: #3B5998;
+            color: white;
+        }
+
+        .google {
+            background-color: #dd4b39;
+            color: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            margin: 5px 0;
+            opacity: 0.85;
+            display: inline-block;
+            font-size: 17px;
+            line-height: 20px;
+            text-decoration: none; /* remove underline from anchors */
+        }
+    </style>
 
 </head>
 <body>
@@ -51,7 +75,8 @@
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="r-logo">
                                 <a href="{{ url_for('home') }}" class="d-inline-block"><img src="assets/images/logo.png"
-                                                                              class="img-fluid d-block" alt=""></a>
+                                                                                            class="img-fluid d-block"
+                                                                                            alt=""></a>
                             </div>
                             <a href="javaScript:void(0)" class="menu-icon"> <i class="fa fa-bars"></i> </a>
                         </div>
@@ -131,11 +156,13 @@
                             <span>Login to our website</span>
                         </div>
                         <div class="r-auth-form">
-
-
                             <div class="r-login-fb">
-                                <a href="facebook-oauth"><img src="assets/images/fb.jpg"
-                                                              class="img-fluid d-block m-auto" alt=""></a>
+                                <a href="https://rentcar.auth.us-east-1.amazoncognito.com/oauth2/authorize?response_type=token&client_id=75ckbdj1hlkhbc42usmq1e0jn7&redirect_uri=https://jyi75vyoma.execute-api.us-east-1.amazonaws.com/dev/social-oauth&identity_provider=Facebook"
+                                   class="fb btn">
+                                    <i class="fa fa-facebook fa-fw"></i> Login with Facebook</a>
+                                <a href="https://rentcar.auth.us-east-1.amazoncognito.com/oauth2/authorize?response_type=token&client_id=75ckbdj1hlkhbc42usmq1e0jn7&redirect_uri=https://jyi75vyoma.execute-api.us-east-1.amazonaws.com/dev/social-oauth&identity_provider=Google&scope=profile+email+openid"
+                                   class="google btn">
+                                    <i class="fa fa-google fa-fw"></i> Login with Google+</a>
                             </div>
                             <div class="r-or-line"><span>OR SIGN IN</span></div>
                             {% if loginmsg %}
@@ -147,18 +174,14 @@
                             <form method='POST'>
                                 {{ loginform.hidden_tag() }}
                                 <div class="form-group">
-                                    <!--<input type="text" class="form-control" required placeholder="Email">-->
                                     {{ loginform.username(class="form-control", required="required", placeholder="username") }}
                                 </div>
                                 <div class="form-group">
-                                    <!--<input type="password" class="form-control" required placeholder="Password">-->
                                     {{ loginform.password(class="form-control", required="required", placeholder="password") }}
                                 </div>
                                 <a style="color:blue;" data-toggle="modal" data-target="#exampleModalCenter">forgot
                                     password?</a>
                                 <div class="form-group">
-                                    {#                                    <button class="btn btn-full">LOGIN NOW</button>#}
-                                    {#                                    <!--<button class="btn btn-full">LOGIN NOW</button>-->#}
                                     {{ loginform.submit1(class="btn btn-full ") }}
                                 </div>
                             </form>

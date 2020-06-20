@@ -2,6 +2,7 @@ import boto3
 import hmac
 import hashlib
 import base64
+import cognitojwt
 
 USER_POOL_ID = 'us-east-1_wZZ7wrox7'
 CLIENT_ID = '75ckbdj1hlkhbc42usmq1e0jn7'
@@ -247,25 +248,22 @@ def resend_verification_code(username):
 
 
 def logout(token):
-    try:
-        response = client.global_sign_out(
-            AccessToken=token)
-        print(response['ResponseMetadata']['HTTPStatusCode'])
-        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-            return {
-                'error': False,
-                'success': True,
-                'message': "Successfully logged out"
-            }
-        else:
-            return {
-                'error': True,
-                'success': False,
-                'message': "Something went wrong"
-            }
-    except Exception as e:
+    response = client.global_sign_out(
+        AccessToken=token)
+    print(response['ResponseMetadata']['HTTPStatusCode'])
+    if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        return {
+            'error': False,
+            'success': True,
+            'message': "Successfully logged out"
+        }
+    else:
         return {
             'error': True,
             'success': False,
             'message': "Something went wrong"
         }
+
+
+def decode_id_token(id_token):
+    return cognitojwt.decode(id_token, "us-east-1", USER_POOL_ID)
