@@ -2,7 +2,7 @@ argcomplete==1.11.1
 autopep8==1.5.2
 boto3==1.13.16
 botocore==1.16.16
-certifi==2020.4.5.1
+certifi==2022.12.7
 cffi==1.14.0
 cfn-flip==1.2.3
 chardet==3.0.4
